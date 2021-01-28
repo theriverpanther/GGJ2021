@@ -11,6 +11,8 @@ public class PlayerControl : MonoBehaviour
 
     [SerializeField]
     float jumpForceMag = 50f;
+    [SerializeField]
+    float jumpForceVerticalMod = 1.5f;
 
     Rigidbody rigidbody;
     Collider collider;
@@ -34,7 +36,7 @@ public class PlayerControl : MonoBehaviour
             lookDir.y = 0;
 
             Vector3 jumpForce = lookDir * jumpForceMag;
-            jumpForce.y = jumpForceMag;
+            jumpForce.y = jumpForceVerticalMod * jumpForceMag;
 
             // Apply the jumping force to the player.
             rigidbody.AddForce(jumpForce);
@@ -53,7 +55,7 @@ public class PlayerControl : MonoBehaviour
     {
         float groundDist = collider.bounds.extents.y;
 
-        return Physics.Raycast(transform.position, -Vector3.up, groundDist + 0.1f);
+        return Physics.Raycast(transform.position, -Vector3.up, groundDist + 0.01f);
 
     }
 }
