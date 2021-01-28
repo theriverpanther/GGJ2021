@@ -5,6 +5,8 @@
 - Controls for the key (jumping, moving camera)
 - Camera tracking
 - Spawn point, exit, and rooms inbetween to traverse
+- Basic UI and instructions
+- Title splash
 
 ## Extras
 - Double jump
