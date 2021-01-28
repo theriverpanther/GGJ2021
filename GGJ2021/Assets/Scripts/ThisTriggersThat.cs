@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class ThisTriggersThat : MonoBehaviour
 {
+    /// <summary>
+    /// The object with a trigger collision box thing
+    /// </summary>
     [SerializeField]
     Collider trigger;
+
+    /// <summary>
+    /// The object(s) that will be affected 
+    /// </summary>
     [SerializeField]
     List<Activated> activated;
 
