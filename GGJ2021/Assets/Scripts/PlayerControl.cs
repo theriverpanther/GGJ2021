@@ -42,6 +42,39 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
+        // -- Jump stuff --
+
+        if (Input.GetKeyDown(jumpKey) && TheCoolerIsGrounded())
+        {
+            // Get the direction the main camera is facing
+            Vector3 lookDir = Camera.main.transform.forward.normalized;
+
+            // Flatten the y value
+            lookDir.y = 0;
+
+            Vector3 jumpForce = lookDir * jumpForceMag;
+            jumpForce.y = jumpForceVerticalMod * jumpForceMag;
+
+            // Apply the jumping force to the player.
+            rigidbody.AddForce(jumpForce);
+
+            Vector3 torque = new Vector3();
+
+            torque.x = Random.Range(-jumpForceMag, jumpForceMag);
+            torque.y = Random.Range(-2 * jumpForceMag, 2 * jumpForceMag);
+            torque.z = Random.Range(-jumpForceMag, jumpForceMag);
+
+            rigidbody.AddTorque(torque);
+        }
+
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    Debug.Log(TheCoolerIsGrounded());
+        //}
+
+
+        // -- Camera Switching --
+
         // Set the initial rotation for the first person camera before the key bounces
         initRot = firstPersonCam.transform.rotation;
 
@@ -83,42 +116,18 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
-        if (Input.GetKeyDown(jumpKey) && TheCoolerIsGrounded())
-        {
-            // Get the direction the main camera is facing
-            Vector3 lookDir = Camera.main.transform.forward.normalized;
-
-            // Flatten the y value
-            lookDir.y = 0;
-
-            Vector3 jumpForce = lookDir * jumpForceMag;
-            jumpForce.y = jumpForceVerticalMod * jumpForceMag;
-
-            // Apply the jumping force to the player.
-            rigidbody.AddForce(jumpForce);
-
-            Vector3 torque = new Vector3();
-
-            torque.x = Random.Range(-jumpForceMag, jumpForceMag);
-            torque.y = Random.Range(-2 * jumpForceMag, 2 * jumpForceMag);
-            torque.z = Random.Range(-jumpForceMag, jumpForceMag);
-
-            rigidbody.AddTorque(torque);
-        }
-
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    Debug.Log(TheCoolerIsGrounded());
-        //}
-
         // Force the first person camera to rotate to it's initial position before the Update method
         if(!isThirdPerson)
         {
             firstPersonCam.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
         }
+    }
+
+    void FixedUpdate()
+    {
+        rigidbody.AddForce(Physics.gravity * 0.1f * rigidbody.mass);
     }
 
     bool IsGrounded()
