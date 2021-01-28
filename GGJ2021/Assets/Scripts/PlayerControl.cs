@@ -16,9 +16,22 @@ public class PlayerControl : MonoBehaviour
     bool isThirdPerson = true;
 
     [SerializeField]
-    float jumpForceMag = 50f;
+    float jumpForceMag = 2.5f;
     [SerializeField]
     float jumpForceVerticalMod = 1.5f;
+    [SerializeField]
+    bool variableJumpEnabled = false;
+    [SerializeField]
+    float initJumpForceMag = 1f;
+    [SerializeField]
+    float holdJumpForceMag = 0.1f;
+    [SerializeField]
+    float verticalJumpForce = 3.75f;
+    [SerializeField]
+    float maxJumpHoldDuration = 0.5f;
+
+    float holdDuration = 0f;
+    Vector3 jumpDirection = Vector3.forward;
 
     Rigidbody rigidbody;
     Collider collider;
@@ -44,34 +57,22 @@ public class PlayerControl : MonoBehaviour
     {
         // -- Jump stuff --
 
-        if (IsGroundedV3() && Input.GetKeyDown(jumpKey))
+        // If the user lets go of jump, ensure they can't press it again afterwards
+        if (Input.GetKeyUp(jumpKey))
         {
-            // Get the direction the main camera is facing
-            Vector3 lookDir = Camera.main.transform.forward.normalized;
-
-            // Flatten the y value
-            lookDir.y = 0;
-
-            Vector3 jumpForce = lookDir * jumpForceMag;
-            jumpForce.y = jumpForceVerticalMod * jumpForceMag;
-
-            // Apply the jumping force to the player.
-            rigidbody.AddForce(jumpForce);
-
-            Vector3 torque = new Vector3();
-
-            torque.x = Random.Range(-jumpForceMag, jumpForceMag);
-            torque.y = Random.Range(-2 * jumpForceMag, 2 * jumpForceMag);
-            torque.z = Random.Range(-jumpForceMag, jumpForceMag);
-
-            rigidbody.AddTorque(torque);
+            holdDuration = 100f;
         }
 
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    Debug.Log(TheCoolerIsGrounded());
-        //}
+        // If the user is holding jump in the allowed time period, apply a force to them
+        if (holdDuration <= maxJumpHoldDuration && Input.GetKey(jumpKey))
+        {
+            holdDuration += Time.deltaTime;
+        }
 
+        if (IsGroundedV3() && Input.GetKeyDown(jumpKey))
+        {
+            Jump();
+        }
 
         // -- Camera Switching --
 
@@ -129,6 +130,51 @@ public class PlayerControl : MonoBehaviour
     void FixedUpdate()
     {
         rigidbody.AddForce(Physics.gravity * 0.1f * rigidbody.mass);
+
+        if (holdDuration <= maxJumpHoldDuration && Input.GetKey(jumpKey))
+        {
+            rigidbody.AddForce(jumpDirection * holdJumpForceMag);
+        }
+    }
+
+    void Jump()
+    {
+        // Get the direction the main camera is facing
+        Vector3 lookDir = Camera.main.transform.forward;
+
+        // Flatten the y value
+        lookDir.y = 0;
+
+        // Normalize the look direction
+        lookDir = lookDir.normalized;
+
+        jumpDirection = lookDir;
+
+        Vector3 jumpForce;
+
+        if (variableJumpEnabled)
+        {
+            jumpForce = jumpDirection * initJumpForceMag;
+
+            holdDuration = 0;
+        }
+        else
+        {
+            jumpForce = jumpDirection * jumpForceMag;
+        }
+
+        jumpForce.y = verticalJumpForce;
+
+        // Apply the jumping force to the player.
+        rigidbody.AddForce(jumpForce);
+
+        Vector3 torque = new Vector3();
+
+        torque.x = Random.Range(-jumpForceMag, jumpForceMag);
+        torque.y = Random.Range(-2 * jumpForceMag, 2 * jumpForceMag);
+        torque.z = Random.Range(-jumpForceMag, jumpForceMag);
+
+        rigidbody.AddTorque(torque);
     }
 
     bool IsGrounded()
@@ -181,12 +227,12 @@ public class PlayerControl : MonoBehaviour
 
         Vector3 playerCenter = (playerBottom + playerTop) / 2f;
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log(playerTop.y);
-            Debug.Log(playerCenter.y);
-            Debug.Log(playerBottom.y);
-        }
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    Debug.Log(playerTop.y);
+        //    Debug.Log(playerCenter.y);
+        //    Debug.Log(playerBottom.y);
+        //}
 
         // All layers except for the player
         int layerMask = 1 << 9;
