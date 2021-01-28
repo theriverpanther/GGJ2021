@@ -314,6 +314,7 @@ MonoBehaviour:
   playerModel: {fileID: 1871721252225804149}
   jumpKey: 32
   jumpForceMag: 2.5
+  jumpForceVerticalMod: 1.5
 --- !u!1 &1529211071817718027
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +413,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529211072219148594}
-  m_LocalRotation: {x: 0.25084138, y: -0.000000020582995, z: 0.0000000049609032, w: 0.96802825}
+  m_LocalRotation: {x: 0.25084138, y: -0.000000020574992, z: 0.000000004958829, w: 0.96802825}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
