@@ -101,18 +101,19 @@ public class PlayerControl : MonoBehaviour
             thirdPersonCam.GetComponent<CinemachineFreeLook>().Priority = (isThirdPerson?10:8);
             thirdPersonCam.GetComponent<CinemachineCollider>().enabled = isThirdPerson;
             firstPersonCam.GetComponent<CinemachineFreeLook>().Priority = (!isThirdPerson?10:8);
-            firstPersonCam.GetComponent<CinemachineCollider>().enabled = !isThirdPerson;
-            // Fix the transitions betweem the two cameras
-            if(isThirdPerson)
-            {
-                firstPersonCam.GetComponent<CinemachineFreeLook>().m_XAxis.Value = thirdPersonCam.GetComponent<CinemachineFreeLook>().m_XAxis.Value;
-                firstPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis.Value = thirdPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis.Value;
-            }
-            else
-            {
-                thirdPersonCam.GetComponent<CinemachineFreeLook>().m_XAxis.Value = firstPersonCam.GetComponent<CinemachineFreeLook>().m_XAxis.Value;
-                thirdPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis.Value = firstPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis.Value;
-            }
+            firstPersonCam.GetComponent<CinemachineCollider>().enabled = !isThirdPerson;            
+        }
+        if(isThirdPerson)
+        {
+            firstPersonCam.forward = thirdPersonCam.forward;
+            firstPersonCam.position = thirdPersonCam.position;
+            firstPersonCam.rotation = thirdPersonCam.rotation;
+        }
+        else
+        {
+            thirdPersonCam.forward = firstPersonCam.forward;
+            thirdPersonCam.position = firstPersonCam.position;
+            thirdPersonCam.rotation = firstPersonCam.rotation;
         }
     }
 
