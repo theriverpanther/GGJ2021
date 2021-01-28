@@ -12,3 +12,4 @@
 - Puzzle mechanics (have to jump up to land on a button that opens the door, etc)
 - Picking up other objects along the way to the exit.
 - Sound effects (maybe some voice lines from the locked in/out owner being frustrated lol)
+- Roomba
