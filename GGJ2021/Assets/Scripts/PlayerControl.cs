@@ -44,7 +44,7 @@ public class PlayerControl : MonoBehaviour
     {
         // -- Jump stuff --
 
-        if (Input.GetKeyDown(jumpKey) && TheCoolerIsGrounded())
+        if (IsGroundedV3() && Input.GetKeyDown(jumpKey))
         {
             // Get the direction the main camera is facing
             Vector3 lookDir = Camera.main.transform.forward.normalized;
@@ -158,5 +158,41 @@ public class PlayerControl : MonoBehaviour
         playerBottom.y += 0.001f;
 
         return Physics.Raycast(playerBottom, -Vector3.up, 0.002f);
+    }
+
+    bool IsGroundedV3()
+    {
+        Vector3 downPoint = new Vector3(
+            collider.bounds.center.x,
+            -500,
+            collider.bounds.center.z);
+
+        Vector3 playerBottom = collider.ClosestPoint(downPoint);
+
+        playerBottom.y += 0.001f;
+
+        Vector3 upPoint = new Vector3(
+            collider.bounds.center.x,
+            500,
+            collider.bounds.center.z);
+
+        Vector3 playerTop = collider.ClosestPoint(upPoint);
+
+        Vector3 playerCenter = (playerBottom + playerTop) / 2f;
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Debug.Log(playerTop.y);
+            Debug.Log(playerCenter.y);
+            Debug.Log(playerBottom.y);
+        }
+
+        // All layers except for the player
+        int layerMask = 1 << 9;
+        layerMask = ~layerMask;
+
+        return Physics.Raycast(playerBottom, -Vector3.up, 0.002f, layerMask)
+            || Physics.Raycast(playerTop, -Vector3.up, 0.012f, layerMask)
+            || Physics.Raycast(playerCenter, -Vector3.up, 0.007f, layerMask);
     }
 }
