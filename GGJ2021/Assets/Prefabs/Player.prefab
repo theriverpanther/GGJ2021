@@ -324,7 +324,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
+  m_LookAt: {fileID: 1347244944121118159}
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
+  m_LookAt: {fileID: 1347244944121118159}
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
+  m_LookAt: {fileID: 1347244944121118159}
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
