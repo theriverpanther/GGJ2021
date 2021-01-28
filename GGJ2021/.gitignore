@@ -58,3 +58,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+[Pp]ackages/manifest.json
+[Pp]ackages/packages-lock.json
+[Pp]rojectSettings/ProjectVersion.asset
+[Pp]rojectSettings/ProjectVersion.txt
