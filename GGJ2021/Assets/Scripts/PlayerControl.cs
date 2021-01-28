@@ -46,8 +46,6 @@ public class PlayerControl : MonoBehaviour
     {
         rigidbody = gameObject.GetComponent<Rigidbody>();
         collider = gameObject.GetComponent<BoxCollider>();
-        thirdPersonCam = gameObject.transform.GetChild(0);
-        firstPersonCam = gameObject.transform.GetChild(1);
         firstPersonCam.GetComponent<CinemachineCollider>().enabled = false;
     }
 
@@ -87,15 +85,11 @@ public class PlayerControl : MonoBehaviour
         }
         if(isThirdPerson)
         {
-            firstPersonCam.forward = thirdPersonCam.forward;
-            firstPersonCam.position = thirdPersonCam.position;
-            firstPersonCam.rotation = thirdPersonCam.rotation;
+            firstPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis = thirdPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis;
         }
         else
         {
-            thirdPersonCam.forward = firstPersonCam.forward;
-            thirdPersonCam.position = firstPersonCam.position;
-            thirdPersonCam.rotation = firstPersonCam.rotation;
+            thirdPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis = firstPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis;
         }
     }
 
