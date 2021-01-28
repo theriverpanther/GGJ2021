@@ -51,6 +51,7 @@ public class PlayerControl : MonoBehaviour
         thirdPersonCam = gameObject.transform.GetChild(0);
         firstPersonCam = gameObject.transform.GetChild(1);
         firstPersonCam.GetComponent<CinemachineCollider>().enabled = false;
+        Cursor.visible = false;
     }
 
     void Update()
