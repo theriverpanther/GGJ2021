@@ -25,9 +25,9 @@ public class PlayerControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if (Input.GetKeyDown(jumpKey) && IsGrounded())
+        if (Input.GetKeyDown(jumpKey) && TheCoolerIsGrounded())
         {
             // Get the direction the main camera is facing
             Vector3 lookDir = Camera.main.transform.forward.normalized;
@@ -49,13 +49,40 @@ public class PlayerControl : MonoBehaviour
 
             rigidbody.AddTorque(torque);
         }
+
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    Debug.Log(TheCoolerIsGrounded());
+        //}
     }
 
     bool IsGrounded()
     {
-        float groundDist = collider.bounds.extents.y;
+        float groundDist;
 
-        return Physics.Raycast(transform.position, -Vector3.up, groundDist + 0.01f);
+        if (Mathf.Abs(transform.rotation.eulerAngles.z) < 45)
+        {
+            groundDist = collider.bounds.extents.y;
+        }
+        else
+        {
+            groundDist = collider.bounds.extents.x;
+        }
 
+        return Physics.Raycast(collider.transform.position, -Vector3.up, groundDist + 0.01f);
+    }
+
+    bool TheCoolerIsGrounded()
+    {
+        Vector3 downPoint = new Vector3(
+            collider.bounds.center.x,
+            -500,
+            collider.bounds.center.z);
+
+        Vector3 playerBottom = collider.ClosestPoint(downPoint);
+
+        playerBottom.y += 0.001f;
+
+        return Physics.Raycast(playerBottom, -Vector3.up, 0.002f);
     }
 }
