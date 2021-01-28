@@ -41,15 +41,11 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     Transform thirdPersonCam;
 
-    Quaternion initRot;
-
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = gameObject.GetComponent<Rigidbody>();
         collider = gameObject.GetComponent<BoxCollider>();
-        thirdPersonCam = gameObject.transform.GetChild(0);
-        firstPersonCam = gameObject.transform.GetChild(1);
         firstPersonCam.GetComponent<CinemachineCollider>().enabled = false;
     }
 
@@ -76,27 +72,10 @@ public class PlayerControl : MonoBehaviour
 
         // -- Camera Switching --
 
-        // Set the initial rotation for the first person camera before the key bounces
-        initRot = firstPersonCam.transform.rotation;
-
         // Change the perspective camera in use
         if(Input.GetKeyDown(changeCam))
         {
             isThirdPerson = !isThirdPerson;
-
-            // Find the vector between both cameras
-            Vector3 between = firstPersonCam.position - thirdPersonCam.position;
-
-            // If it is transitioning to third person, make the third person cam look to the direction
-            // Otherwise, make the first person camera look in the opposite direction
-            if(isThirdPerson)
-            {
-                thirdPersonCam.rotation = Quaternion.LookRotation(between);
-            }
-            else
-            {
-                firstPersonCam.rotation = Quaternion.LookRotation(-between);
-            }
 
             // Swap priority between cameras and enable the correct camera colliders
             thirdPersonCam.GetComponent<CinemachineFreeLook>().Priority = (isThirdPerson?10:8);
@@ -106,15 +85,11 @@ public class PlayerControl : MonoBehaviour
         }
         if(isThirdPerson)
         {
-            firstPersonCam.forward = thirdPersonCam.forward;
-            firstPersonCam.position = thirdPersonCam.position;
-            firstPersonCam.rotation = thirdPersonCam.rotation;
+            firstPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis = thirdPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis;
         }
         else
         {
-            thirdPersonCam.forward = firstPersonCam.forward;
-            thirdPersonCam.position = firstPersonCam.position;
-            thirdPersonCam.rotation = firstPersonCam.rotation;
+            thirdPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis = firstPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis;
         }
     }
 
@@ -123,7 +98,7 @@ public class PlayerControl : MonoBehaviour
         // Force the first person camera to rotate to it's initial position before the Update method
         if(!isThirdPerson)
         {
-            firstPersonCam.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+            firstPersonCam.transform.rotation = Quaternion.Euler(0,0,0);
         }
     }
 
