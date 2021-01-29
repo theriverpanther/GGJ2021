@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
 
     Vector3 thirdPersonRelative;
 
-    bool camSwitchedLastFrame = false;
+    int camSwitchDelay = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -36,24 +36,27 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isThirdPerson && camSwitchedLastFrame) // HERE BE DRAGONS! DO. NOT. TOUCH THIS.
+        if (isThirdPerson && camSwitchDelay > 0) // HERE BE DRAGONS! DO. NOT. TOUCH THIS.
         {
-            camSwitchedLastFrame = false;
+            if (camSwitchDelay == 1)
+            {
+                Vector3 target = transform.position - thirdPersonCam.position;
 
-            Vector3 target = transform.position - thirdPersonCam.position;
+                target.y = 0;
+                firstPersonBackwards.y = 0;
 
-            target.y = 0;
-            firstPersonBackwards.y = 0;
+                float cos = Vector3.Dot(target, firstPersonBackwards) / (Vector3.Magnitude(target) * Vector3.Magnitude(firstPersonBackwards));
 
-            float cos = Vector3.Dot(target, firstPersonBackwards) / (Vector3.Magnitude(target) * Vector3.Magnitude(firstPersonBackwards));
+                float adjustAngle = 180 - (Mathf.Acos(cos) * Mathf.Rad2Deg);
 
-            float adjustAngle = 180 - (Mathf.Acos(cos) * Mathf.Rad2Deg);
+                Debug.Log("Adjust: " + adjustAngle);
 
-            Debug.Log("Adjust: " + adjustAngle);
+                CinemachineFreeLook thirdPersonCamMachine = thirdPersonCam.GetComponent<CinemachineFreeLook>();
 
-            CinemachineFreeLook thirdPersonCamMachine = thirdPersonCam.GetComponent<CinemachineFreeLook>();
+                thirdPersonCamMachine.m_XAxis.Value = adjustAngle * Mathf.Sign(Vector3.Dot(target, firstPersonLeft));
+            }
 
-            thirdPersonCamMachine.m_XAxis.Value = adjustAngle * Mathf.Sign(Vector3.Dot(target, firstPersonLeft));
+            camSwitchDelay--;
         }
 
         // Change the perspective camera in use
@@ -73,7 +76,7 @@ public class CameraController : MonoBehaviour
                 firstPersonBackwards = -mainCamera.forward;
                 firstPersonLeft = -mainCamera.right;
 
-                camSwitchedLastFrame = true;
+                camSwitchDelay = 2;
             }
             
             isThirdPerson = !isThirdPerson;
