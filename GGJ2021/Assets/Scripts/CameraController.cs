@@ -74,7 +74,7 @@ public class CameraController : MonoBehaviour
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
             yRotation += mouseX;
 
-            Debug.Log(xRotation + "\n" + yRotation);
+            //Debug.Log(xRotation + "\n" + yRotation);
 
             mainCamera.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
             
