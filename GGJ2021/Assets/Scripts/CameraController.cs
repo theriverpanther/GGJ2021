@@ -49,8 +49,6 @@ public class CameraController : MonoBehaviour
 
                 float adjustAngle = 180 - (Mathf.Acos(cos) * Mathf.Rad2Deg);
 
-                Debug.Log("Adjust: " + adjustAngle);
-
                 CinemachineFreeLook thirdPersonCamMachine = thirdPersonCam.GetComponent<CinemachineFreeLook>();
 
                 thirdPersonCamMachine.m_XAxis.Value = adjustAngle * Mathf.Sign(Vector3.Dot(target, firstPersonLeft));
