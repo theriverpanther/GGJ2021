@@ -11,7 +11,7 @@ public class PlayerControl : MonoBehaviour
     KeyCode jumpKey = KeyCode.Space;
 
     [SerializeField]
-    KeyCode changeCam = KeyCode.LeftShift;
+    KeyCode changeCamKey = KeyCode.LeftShift;
 
     bool isThirdPerson = true;
 
@@ -40,6 +40,10 @@ public class PlayerControl : MonoBehaviour
     Transform firstPersonCam;
     [SerializeField]
     Transform thirdPersonCam;
+
+    private bool changedCam;
+
+    public List<AudioClip> gameSounds;
 
     // Start is called before the first frame update
     void Start()
@@ -73,23 +77,20 @@ public class PlayerControl : MonoBehaviour
         // -- Camera Switching --
 
         // Change the perspective camera in use
-        if(Input.GetKeyDown(changeCam))
+        if(Input.GetKeyDown(changeCamKey))
         {
+            changedCam = true;
             isThirdPerson = !isThirdPerson;
 
             // Swap priority between cameras and enable the correct camera colliders
             thirdPersonCam.GetComponent<CinemachineFreeLook>().Priority = (isThirdPerson?10:8);
             thirdPersonCam.GetComponent<CinemachineCollider>().enabled = isThirdPerson;
             firstPersonCam.GetComponent<CinemachineFreeLook>().Priority = (!isThirdPerson?10:8);
-            firstPersonCam.GetComponent<CinemachineCollider>().enabled = !isThirdPerson;            
-        }
-        if(isThirdPerson)
-        {
-            firstPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis = thirdPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis;
+            firstPersonCam.GetComponent<CinemachineCollider>().enabled = !isThirdPerson;
         }
         else
         {
-            thirdPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis = firstPersonCam.GetComponent<CinemachineFreeLook>().m_YAxis;
+            changedCam = false;
         }
     }
 
@@ -99,6 +100,19 @@ public class PlayerControl : MonoBehaviour
         if(!isThirdPerson)
         {
             firstPersonCam.transform.rotation = Quaternion.Euler(0,0,0);
+        }
+        if(changedCam)
+        {
+            if(isThirdPerson)
+            {
+                firstPersonCam.GetComponent<CinemachineFreeLook>().Follow = thirdPersonCam;
+                thirdPersonCam.GetComponent<CinemachineFreeLook>().Follow = gameObject.transform;
+            }
+            else
+            {
+                firstPersonCam.GetComponent<CinemachineFreeLook>().Follow = gameObject.transform;
+                thirdPersonCam.GetComponent<CinemachineFreeLook>().Follow = firstPersonCam;
+            }
         }
     }
 
@@ -217,4 +231,10 @@ public class PlayerControl : MonoBehaviour
             || Physics.Raycast(playerTop, -Vector3.up, 0.012f, layerMask)
             || Physics.Raycast(playerCenter, -Vector3.up, 0.007f, layerMask);
     }
+
+    void OnTriggerEnter()
+    {
+        gameObject.GetComponent<AudioSource>().clip = gameSounds[Random.Range(0,4)];
+        gameObject.GetComponent<AudioSource>().Play();
+    }   
 }
