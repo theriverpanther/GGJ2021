@@ -28,9 +28,9 @@ public class Roomba : MonoBehaviour
         nearbyForceObjs.Clear();
         foreach(Rigidbody rigid in allForceObjs)
         {
-            if(Vector3.Distance(rigid.gameObject.transform.position, transform.position) < 2)
+            if(Vector3.Distance(rigid.gameObject.transform.position, transform.position) < 1.5f)
             {
-                rigid.gameObject.transform.position += Vector3.Normalize(transform.position - rigid.gameObject.transform.position) * Time.deltaTime;
+                rigid.gameObject.transform.position += Vector3.Normalize(transform.position - rigid.gameObject.transform.position) * Time.deltaTime * 0.15f/Vector3.Distance(rigid.gameObject.transform.position, transform.position);
             }
         }
 
@@ -41,7 +41,7 @@ public class Roomba : MonoBehaviour
                 transform.position += Vector3.Normalize((waypoints[target].transform.position - transform.position)) * Time.deltaTime * speed;
 
                 //Swap targets if successfully reached one
-                if (Vector3.Distance(waypoints[target].transform.position, transform.position) < 1)
+                if (Vector3.Distance(waypoints[target].transform.position, transform.position) < 0.1f)
                 {
                     if (target < waypoints.Length - 1)
                     {
@@ -54,7 +54,7 @@ public class Roomba : MonoBehaviour
                 }
 
                 //Detect distance to key
-                if(Vector3.Distance(player.gameObject.transform.position, transform.position) < 3)
+                if(Vector3.Distance(player.gameObject.transform.position, transform.position) < 2)
                 {
                     roombaState = 1;
                 }
@@ -64,7 +64,7 @@ public class Roomba : MonoBehaviour
                 transform.position += Vector3.Normalize((player.gameObject.transform.position - transform.position)) * Time.deltaTime * speed;
 
                 //Give up if the key is far enough away
-                if (Vector3.Distance(player.gameObject.transform.position, transform.position) > 5)
+                if (Vector3.Distance(player.gameObject.transform.position, transform.position) > 3)
                 {
                     roombaState = 0;
                 }
