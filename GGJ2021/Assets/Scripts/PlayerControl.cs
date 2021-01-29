@@ -232,9 +232,12 @@ public class PlayerControl : MonoBehaviour
             || Physics.Raycast(playerCenter, -Vector3.up, 0.007f, layerMask);
     }
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
-        gameObject.GetComponent<AudioSource>().clip = gameSounds[Random.Range(0,4)];
-        gameObject.GetComponent<AudioSource>().Play();
+        if (!other.isTrigger)
+        {
+            gameObject.GetComponent<AudioSource>().clip = gameSounds[Random.Range(0, gameSounds.Count)];
+            gameObject.GetComponent<AudioSource>().Play();
+        }
     }   
 }
