@@ -20,6 +20,11 @@ public class CameraController : MonoBehaviour
     float xRotation = 0f;
     float yRotation = 0f;
 
+    Vector3 firstPersonBackwards = Vector3.back;
+    Vector3 firstPersonLeft = Vector3.left;
+
+    Vector3 thirdPersonRelative;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,13 +37,21 @@ public class CameraController : MonoBehaviour
         // Change the perspective camera in use
         if(Input.GetKeyDown(changeCamKey))
         {
-            if(isThirdPerson)
+            if (isThirdPerson)
             {
                 Vector3 target = gameObject.transform.position - thirdPersonCam.position;
                 float result = 0f;
-                
+
                 yRotation = Mathf.Rad2Deg * Mathf.Atan2(target.x, target.z);
+
+                thirdPersonRelative = thirdPersonCam.position - transform.position;
             }
+            else
+            {
+                firstPersonBackwards = -mainCamera.forward;
+                firstPersonLeft = -mainCamera.right;
+            }
+            
             isThirdPerson = !isThirdPerson;
 
             thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = isThirdPerson;
@@ -55,9 +68,34 @@ public class CameraController : MonoBehaviour
             //Debug.Log(xRotation + "\n" + yRotation);
 
             mainCamera.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
-            
+
             // Follow the player
             mainCamera.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 0.05f, gameObject.transform.position.z);
+
+
+            // -- HERE BE DRAGONS -- DAN'S EXPERIMENTS --
+            //thirdPersonCam.position = transform.position + thirdPersonRelative;
+        }
+    }
+
+    void LateUpdate()
+    {
+        if (Input.GetKeyDown(changeCamKey) && isThirdPerson)
+        {
+            Vector3 target = gameObject.transform.position - thirdPersonCam.position;
+
+            target.y = 0;
+            firstPersonBackwards.y = 0;
+
+            float cos = Vector3.Dot(target, firstPersonBackwards) / (Vector3.Magnitude(target) * Vector3.Magnitude(firstPersonBackwards));
+
+            float adjustAngle = 180 - (Mathf.Acos(cos) * Mathf.Rad2Deg);
+
+            Debug.Log("Adjust: " + adjustAngle);
+
+            CinemachineFreeLook thirdPersonCamMachine = thirdPersonCam.GetComponent<CinemachineFreeLook>();
+
+            thirdPersonCamMachine.m_XAxis.Value = adjustAngle * Mathf.Sign(Vector3.Dot(target, firstPersonLeft));
         }
     }
 
