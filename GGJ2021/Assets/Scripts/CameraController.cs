@@ -32,38 +32,16 @@ public class CameraController : MonoBehaviour
         // Change the perspective camera in use
         if(Input.GetKeyDown(changeCamKey))
         {
-            isThirdPerson = !isThirdPerson;
-
-            thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = isThirdPerson;
-
-            if(!isThirdPerson)
+            if(isThirdPerson)
             {
                 Vector3 target = gameObject.transform.position - thirdPersonCam.position;
                 float result = 0f;
-                if(target.x > 0)
-                {
-                    if(target.z > 0)
-                    {
-                        // 180 - 270
-                    }
-                    else
-                    {
-                        // 270 - 360
-                    }
-                }
-                else
-                {
-                    if(target.z > 0)
-                    {
-                        // 90 - 180
-                    }
-                    else
-                    {
-                        // 0 - 90
-                    }
-                }
-                xRotation = result;
+                
+                yRotation = Mathf.Rad2Deg * Mathf.Atan2(target.x, target.z);
             }
+            isThirdPerson = !isThirdPerson;
+
+            thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = isThirdPerson;
         }
         if(!isThirdPerson)
         {

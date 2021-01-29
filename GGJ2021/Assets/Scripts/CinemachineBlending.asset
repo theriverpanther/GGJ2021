@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CinemachineBlending
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: First Person Camera
-    m_To: Third Person Camera
+  - m_From: First Person Cam
+    m_To: Third Person Cam
     m_Blend:
       m_Style: 3
       m_Time: 2
@@ -24,8 +24,8 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: Third Person Camera
-    m_To: First Person Camera
+  - m_From: Third Person Cam
+    m_To: First Person Cam
     m_Blend:
       m_Style: 2
       m_Time: 2
