@@ -55,7 +55,7 @@ public class PlayerControl : MonoBehaviour
             holdDuration += Time.deltaTime;
         }
 
-        if (IsGroundedV3() && Input.GetKeyDown(jumpKey))
+        if ((IsGroundedV3() || rigidbody.velocity.magnitude < 0.005f) && Input.GetKeyDown(jumpKey))
         {
             Jump();
         }
