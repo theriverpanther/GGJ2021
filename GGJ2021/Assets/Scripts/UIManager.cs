@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
     // Fields
     public GameObject[] triggerObjects;
     private RoomTrigger[] triggerScripts;
-    private MeshCollider[] triggerColliders;
+    private Collider[] triggerColliders;
     public GameObject key;
     public float screenTime;
     private float timer = 0;
@@ -19,11 +19,14 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        triggerScripts = new RoomTrigger[triggerObjects.Length];
+        triggerColliders = new Collider[triggerObjects.Length];
+
         // fills the triggerScripts and triggerColliders lists with all the RoomTrigger components
         for (int i = 0; i < triggerObjects.Length; i++)
         {
             triggerScripts[i] = triggerObjects[i].GetComponent<RoomTrigger>();
-            triggerColliders[i] = triggerObjects[i].GetComponent<MeshCollider>();
+            triggerColliders[i] = triggerObjects[i].GetComponent<Collider>();
         }
 
         textComponent = textObject.GetComponent<Text>();
