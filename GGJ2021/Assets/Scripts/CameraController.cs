@@ -25,6 +25,8 @@ public class CameraController : MonoBehaviour
 
     Vector3 thirdPersonRelative;
 
+    bool camSwitchedLastFrame = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,8 +36,28 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isThirdPerson && camSwitchedLastFrame) // HERE BE DRAGONS! DO. NOT. TOUCH THIS.
+        {
+            camSwitchedLastFrame = false;
+
+            Vector3 target = transform.position - thirdPersonCam.position;
+
+            target.y = 0;
+            firstPersonBackwards.y = 0;
+
+            float cos = Vector3.Dot(target, firstPersonBackwards) / (Vector3.Magnitude(target) * Vector3.Magnitude(firstPersonBackwards));
+
+            float adjustAngle = 180 - (Mathf.Acos(cos) * Mathf.Rad2Deg);
+
+            Debug.Log("Adjust: " + adjustAngle);
+
+            CinemachineFreeLook thirdPersonCamMachine = thirdPersonCam.GetComponent<CinemachineFreeLook>();
+
+            thirdPersonCamMachine.m_XAxis.Value = adjustAngle * Mathf.Sign(Vector3.Dot(target, firstPersonLeft));
+        }
+
         // Change the perspective camera in use
-        if(Input.GetKeyDown(changeCamKey))
+        if (Input.GetKeyDown(changeCamKey))
         {
             if (isThirdPerson)
             {
@@ -50,6 +72,8 @@ public class CameraController : MonoBehaviour
             {
                 firstPersonBackwards = -mainCamera.forward;
                 firstPersonLeft = -mainCamera.right;
+
+                camSwitchedLastFrame = true;
             }
             
             isThirdPerson = !isThirdPerson;
@@ -71,10 +95,6 @@ public class CameraController : MonoBehaviour
 
             // Follow the player
             mainCamera.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 0.05f, gameObject.transform.position.z);
-
-
-            // -- HERE BE DRAGONS -- DAN'S EXPERIMENTS --
-            //thirdPersonCam.position = transform.position + thirdPersonRelative;
         }
     }
 
@@ -82,20 +102,7 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetKeyDown(changeCamKey) && isThirdPerson)
         {
-            Vector3 target = gameObject.transform.position - thirdPersonCam.position;
-
-            target.y = 0;
-            firstPersonBackwards.y = 0;
-
-            float cos = Vector3.Dot(target, firstPersonBackwards) / (Vector3.Magnitude(target) * Vector3.Magnitude(firstPersonBackwards));
-
-            float adjustAngle = 180 - (Mathf.Acos(cos) * Mathf.Rad2Deg);
-
-            Debug.Log("Adjust: " + adjustAngle);
-
-            CinemachineFreeLook thirdPersonCamMachine = thirdPersonCam.GetComponent<CinemachineFreeLook>();
-
-            thirdPersonCamMachine.m_XAxis.Value = adjustAngle * Mathf.Sign(Vector3.Dot(target, firstPersonLeft));
+            
         }
     }
 
