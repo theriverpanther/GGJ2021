@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -9,11 +8,6 @@ public class PlayerControl : MonoBehaviour
 
     [SerializeField]
     KeyCode jumpKey = KeyCode.Space;
-
-    [SerializeField]
-    KeyCode changeCam = KeyCode.LeftShift;
-
-    bool isThirdPerson = true;
 
     [SerializeField]
     float jumpForceMag = 2.5f;
@@ -36,19 +30,13 @@ public class PlayerControl : MonoBehaviour
     Rigidbody rigidbody;
     Collider collider;
 
-    [SerializeField]
-    Transform firstPersonCam;
-    [SerializeField]
-    Transform thirdPersonCam;
+    public List<AudioClip> gameSounds;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = gameObject.GetComponent<Rigidbody>();
         collider = gameObject.GetComponent<BoxCollider>();
-        thirdPersonCam = gameObject.transform.GetChild(0);
-        firstPersonCam = gameObject.transform.GetChild(1);
-        firstPersonCam.GetComponent<CinemachineCollider>().enabled = false;
     }
 
     void Update()
@@ -70,41 +58,6 @@ public class PlayerControl : MonoBehaviour
         if (IsGroundedV3() && Input.GetKeyDown(jumpKey))
         {
             Jump();
-        }
-
-        // -- Camera Switching --
-
-        // Change the perspective camera in use
-        if(Input.GetKeyDown(changeCam))
-        {
-            isThirdPerson = !isThirdPerson;
-
-            // Swap priority between cameras and enable the correct camera colliders
-            thirdPersonCam.GetComponent<CinemachineFreeLook>().Priority = (isThirdPerson?10:8);
-            thirdPersonCam.GetComponent<CinemachineCollider>().enabled = isThirdPerson;
-            firstPersonCam.GetComponent<CinemachineFreeLook>().Priority = (!isThirdPerson?10:8);
-            firstPersonCam.GetComponent<CinemachineCollider>().enabled = !isThirdPerson;            
-        }
-        if(isThirdPerson)
-        {
-            firstPersonCam.forward = thirdPersonCam.forward;
-            firstPersonCam.position = thirdPersonCam.position;
-            firstPersonCam.rotation = thirdPersonCam.rotation;
-        }
-        else
-        {
-            thirdPersonCam.forward = firstPersonCam.forward;
-            thirdPersonCam.position = firstPersonCam.position;
-            thirdPersonCam.rotation = firstPersonCam.rotation;
-        }
-    }
-
-    void LateUpdate()
-    {
-        // Force the first person camera to rotate to it's initial position before the Update method
-        if(!isThirdPerson)
-        {
-            firstPersonCam.transform.rotation = Quaternion.Euler(0,0,0);
         }
     }
 
@@ -223,4 +176,13 @@ public class PlayerControl : MonoBehaviour
             || Physics.Raycast(playerTop, -Vector3.up, 0.012f, layerMask)
             || Physics.Raycast(playerCenter, -Vector3.up, 0.007f, layerMask);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!other.isTrigger)
+        {
+            gameObject.GetComponent<AudioSource>().clip = gameSounds[Random.Range(0, gameSounds.Count)];
+            gameObject.GetComponent<AudioSource>().Play();
+        }
+    }   
 }
