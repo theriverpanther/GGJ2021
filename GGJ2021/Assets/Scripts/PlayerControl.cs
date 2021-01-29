@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -9,11 +8,6 @@ public class PlayerControl : MonoBehaviour
 
     [SerializeField]
     KeyCode jumpKey = KeyCode.Space;
-
-    [SerializeField]
-    KeyCode changeCamKey = KeyCode.LeftShift;
-
-    bool isThirdPerson = true;
 
     [SerializeField]
     float jumpForceMag = 2.5f;
@@ -36,13 +30,6 @@ public class PlayerControl : MonoBehaviour
     Rigidbody rigidbody;
     Collider collider;
 
-    [SerializeField]
-    Transform firstPersonCam;
-    [SerializeField]
-    Transform thirdPersonCam;
-
-    private bool changedCam;
-
     public List<AudioClip> gameSounds;
 
     // Start is called before the first frame update
@@ -50,7 +37,6 @@ public class PlayerControl : MonoBehaviour
     {
         rigidbody = gameObject.GetComponent<Rigidbody>();
         collider = gameObject.GetComponent<BoxCollider>();
-        firstPersonCam.GetComponent<CinemachineCollider>().enabled = false;
     }
 
     void Update()
@@ -72,47 +58,6 @@ public class PlayerControl : MonoBehaviour
         if (IsGroundedV3() && Input.GetKeyDown(jumpKey))
         {
             Jump();
-        }
-
-        // -- Camera Switching --
-
-        // Change the perspective camera in use
-        if(Input.GetKeyDown(changeCamKey))
-        {
-            changedCam = true;
-            isThirdPerson = !isThirdPerson;
-
-            // Swap priority between cameras and enable the correct camera colliders
-            thirdPersonCam.GetComponent<CinemachineFreeLook>().Priority = (isThirdPerson?10:8);
-            thirdPersonCam.GetComponent<CinemachineCollider>().enabled = isThirdPerson;
-            firstPersonCam.GetComponent<CinemachineFreeLook>().Priority = (!isThirdPerson?10:8);
-            firstPersonCam.GetComponent<CinemachineCollider>().enabled = !isThirdPerson;
-        }
-        else
-        {
-            changedCam = false;
-        }
-    }
-
-    void LateUpdate()
-    {
-        // Force the first person camera to rotate to it's initial position before the Update method
-        if(!isThirdPerson)
-        {
-            firstPersonCam.transform.rotation = Quaternion.Euler(0,0,0);
-        }
-        if(changedCam)
-        {
-            if(isThirdPerson)
-            {
-                firstPersonCam.GetComponent<CinemachineFreeLook>().Follow = thirdPersonCam;
-                thirdPersonCam.GetComponent<CinemachineFreeLook>().Follow = gameObject.transform;
-            }
-            else
-            {
-                firstPersonCam.GetComponent<CinemachineFreeLook>().Follow = gameObject.transform;
-                thirdPersonCam.GetComponent<CinemachineFreeLook>().Follow = firstPersonCam;
-            }
         }
     }
 

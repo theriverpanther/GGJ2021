@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6917204758205535830}
   - component: {fileID: 4179810051143268632}
   - component: {fileID: 160341110606452975}
+  - component: {fileID: 8780269098580065134}
   - component: {fileID: 6731080226465365408}
   - component: {fileID: 4220863217388913909}
   m_Layer: 9
@@ -79,7 +80,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerModel: {fileID: 1871721252225804149}
   jumpKey: 32
-  changeCamKey: 304
   jumpForceMag: 2.5
   jumpForceVerticalMod: 1.5
   variableJumpEnabled: 1
@@ -87,13 +87,26 @@ MonoBehaviour:
   holdJumpForceMag: 0.145
   verticalJumpForce: 3.75
   maxJumpHoldDuration: 0.3
-  firstPersonCam: {fileID: 0}
-  thirdPersonCam: {fileID: 0}
   gameSounds:
   - {fileID: 8300000, guid: dc9f01d730b9d7443a31be8e246d7e38, type: 3}
   - {fileID: 8300000, guid: d3aac5e6e66d9d44ca17915e9561cdce, type: 3}
   - {fileID: 8300000, guid: a78e3f474c50c3649a023c8b5e37ca99, type: 3}
   - {fileID: 8300000, guid: 5ba2a50a2a4fc154890b792c8858e7c7, type: 3}
+--- !u!114 &8780269098580065134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529211071484394721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea67ef42898c9354f9d82e95de904ed8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeCamKey: 304
+  firstPersonCam: {fileID: 0}
+  thirdPersonCam: {fileID: 0}
 --- !u!82 &6731080226465365408
 AudioSource:
   m_ObjectHideFlags: 0
