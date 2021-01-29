@@ -10,6 +10,8 @@ public class Roomba : MonoBehaviour
     [SerializeField] int roombaState; //1 = Waypoints / 2 = Pursue
     private PlayerControl player;
     [SerializeField] const float speed = 0.2f;
+    [SerializeField] Rigidbody[] allForceObjs;
+    [SerializeField] List<GameObject> nearbyForceObjs;
 
     // Start is called before the first frame update
     void Start()
@@ -17,11 +19,21 @@ public class Roomba : MonoBehaviour
         target = 0;
         roombaState = 0;
         player = FindObjectOfType<PlayerControl>();
+        allForceObjs = FindObjectsOfType<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        nearbyForceObjs.Clear();
+        foreach(Rigidbody rigid in allForceObjs)
+        {
+            if(Vector3.Distance(rigid.gameObject.transform.position, transform.position) < 2)
+            {
+                rigid.gameObject.transform.position += Vector3.Normalize(transform.position - rigid.gameObject.transform.position) * Time.deltaTime;
+            }
+        }
+
         switch (roombaState)
         {
             case 0:
