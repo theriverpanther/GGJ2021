@@ -978,7 +978,7 @@ GameObject:
   - component: {fileID: 211334652}
   - component: {fileID: 211334655}
   - component: {fileID: 211334654}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: mug (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1842,10 +1842,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1329135409744636692, guid: f3dad748a342e51489d029d8906221d2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f3dad748a342e51489d029d8906221d2,
         type: 3}
       propertyPath: m_Name
       value: kitchenCoffeeMachine
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f3dad748a342e51489d029d8906221d2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9191532978775866942, guid: f3dad748a342e51489d029d8906221d2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3dad748a342e51489d029d8906221d2, type: 3}
@@ -4904,7 +4919,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061645869}
-  m_LocalRotation: {x: 0.03821559, y: -1.1094122e-16, z: 4.2427827e-18, w: 0.99926955}
+  m_LocalRotation: {x: 0.03821559, y: 8.8752975e-16, z: -3.394226e-17, w: 0.99926955}
   m_LocalPosition: {x: 3.65, y: 1.433, z: -2.3830001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5777,10 +5792,20 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.25470063
       objectReference: {fileID: 0}
+    - target: {fileID: -3243745275953721920, guid: 0f2062a8c2123ce4c8076dfd2f13f7b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0f2062a8c2123ce4c8076dfd2f13f7b3,
         type: 3}
       propertyPath: m_Name
       value: canOpen
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0f2062a8c2123ce4c8076dfd2f13f7b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f2062a8c2123ce4c8076dfd2f13f7b3, type: 3}
@@ -6826,6 +6851,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: rugRectangle
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5f18e4fa68066e645a450a149de5f36f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8838135206697848219, guid: 5f18e4fa68066e645a450a149de5f36f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f18e4fa68066e645a450a149de5f36f, type: 3}
@@ -8567,6 +8602,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: canSmall
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6db6a8dd571e03949b645bce0f60b930,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535139345004818823, guid: 6db6a8dd571e03949b645bce0f60b930,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db6a8dd571e03949b645bce0f60b930, type: 3}
@@ -14736,7 +14781,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543450651856937557}
   - component: {fileID: 1851672000}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20081,12 +20126,12 @@ PrefabInstance:
     - target: {fileID: 5113239415160004348, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000003879351
+      value: -0.000000005837863
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415160004348, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000001561694
+      value: 0.00000015194337
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415160004348, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
@@ -20096,17 +20141,17 @@ PrefabInstance:
     - target: {fileID: 5113239415160004348, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9918781
+      value: 0.99187815
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415386039108, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 3.2686315e-10
+      value: 0.000000025253598
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415386039108, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000022270628
+      value: -0.000000017147965
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415386039108, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
@@ -20116,12 +20161,12 @@ PrefabInstance:
     - target: {fileID: 5113239415386039108, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14521298
+      value: 0.5019268
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415386039108, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98940045
+      value: 0.8649101
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415386039108, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
@@ -20131,17 +20176,17 @@ PrefabInstance:
     - target: {fileID: 5113239415386039108, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.28999996
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415523546320, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -6.8713657e-10
+      value: -6.871356e-10
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415523546320, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000017967382
+      value: 0.00000001796738
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415523546320, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
@@ -20436,7 +20481,7 @@ GameObject:
   - component: {fileID: 8463928158143822132}
   - component: {fileID: 4045481824037655799}
   - component: {fileID: 3785378708895795147}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
