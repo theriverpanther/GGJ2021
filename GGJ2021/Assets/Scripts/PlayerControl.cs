@@ -81,6 +81,9 @@ public class PlayerControl : MonoBehaviour
 
     void Jump()
     {
+        // Play a jump sound
+        playerSource.PlayOneShot(gameSounds[0]);
+
         // Get the direction the main camera is facing
         Vector3 lookDir = Camera.main.transform.forward;
 
@@ -185,17 +188,19 @@ public class PlayerControl : MonoBehaviour
             || Physics.Raycast(playerCenter, -Vector3.up, 0.007f, layerMask);
     }
 
+    // Whenever the collider is entered, play a random collision sound
     void OnTriggerEnter(Collider other)
     {
         if (!other.isTrigger)
         {
-            gameObject.GetComponent<AudioSource>().PlayOneShot(gameSounds[Random.Range(0, gameSounds.Count)]);
+            playerSource.PlayOneShot(gameSounds[Random.Range(1, gameSounds.Count)]);
         }
     }
 
+    // Whenever the pause menu slider is changed, change the volume on the camera and key
     public void ChangeVolume()
     {
         camSource.volume = volumeSlider.value;
-        playerSource.volume = volumeSlider.value;
+        playerSource.volume = volumeSlider.value * 0.8f;
     }   
 }
