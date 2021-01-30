@@ -33,7 +33,7 @@ public class Roomba : MonoBehaviour
         foreach(Rigidbody rigid in allForceObjs)
         {
             Vector3 rigidpos = rigid.gameObject.transform.position;
-            if (Mathf.Abs(rigidpos.y - transform.position.y) < 0.5f && SurfaceDist(rigidpos, transform.position) < 1.75f)
+            if (Mathf.Abs(rigidpos.y - transform.position.y) < 0.25f && SurfaceDist(rigidpos, transform.position) < 1.5f)
             {
                 Vector3 direction = new Vector3(transform.position.x - rigidpos.x, 0, transform.position.z - rigidpos.z);
                 rigid.gameObject.transform.position += Vector3.Normalize(direction) * Time.deltaTime * 0.10f/SurfaceDist(rigidpos, transform.position);
@@ -73,7 +73,7 @@ public class Roomba : MonoBehaviour
 
                 //Give up if the key is far enough away
                 //Takes vertical and horizontal distance into account
-                if (SurfaceDist(playerpos, transform.position) > 2 || Mathf.Abs(playerpos.y - transform.position.y) > 1)
+                if (SurfaceDist(playerpos, transform.position) > 1.5f || Mathf.Abs(playerpos.y - transform.position.y) > 1)
                 {
                     roombaState = 0;
                 }
