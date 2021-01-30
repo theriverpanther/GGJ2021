@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -32,11 +33,18 @@ public class PlayerControl : MonoBehaviour
 
     public List<AudioClip> gameSounds;
 
+    public AudioSource camSource;
+    public AudioSource playerSource;
+
+    public Slider volumeSlider;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = gameObject.GetComponent<Rigidbody>();
         collider = gameObject.GetComponent<BoxCollider>();
+
+        playerSource = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -183,5 +191,11 @@ public class PlayerControl : MonoBehaviour
         {
             gameObject.GetComponent<AudioSource>().PlayOneShot(gameSounds[Random.Range(0, gameSounds.Count)]);
         }
+    }
+
+    public void ChangeVolume()
+    {
+        camSource.volume = volumeSlider.value;
+        playerSource.volume = volumeSlider.value;
     }   
 }

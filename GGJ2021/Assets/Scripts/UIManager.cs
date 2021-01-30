@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class UIManager : MonoBehaviour
 {
@@ -89,7 +90,8 @@ public class UIManager : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = true;
     }
 
     public void Pause()
@@ -97,7 +99,8 @@ public class UIManager : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
-        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = false;
     }
 
     public void QuitGame()

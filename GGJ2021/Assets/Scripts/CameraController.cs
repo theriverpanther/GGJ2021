@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     bool isThirdPerson = true;
 
     [SerializeField]
-    Transform thirdPersonCam;
+    public Transform thirdPersonCam;
 
     public Transform mainCamera;
 
@@ -96,14 +96,6 @@ public class CameraController : MonoBehaviour
 
             // Follow the player
             mainCamera.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 0.05f, gameObject.transform.position.z);
-        }
-    }
-
-    void LateUpdate()
-    {
-        if (Input.GetKeyDown(changeCamKey) && isThirdPerson)
-        {
-            
         }
     }
 
