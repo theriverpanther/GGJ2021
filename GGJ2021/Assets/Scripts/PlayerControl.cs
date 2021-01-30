@@ -35,6 +35,7 @@ public class PlayerControl : MonoBehaviour
 
     public AudioSource camSource;
     public AudioSource playerSource;
+    public AudioSource roombaSource;
 
     public Slider volumeSlider;
 
@@ -43,8 +44,6 @@ public class PlayerControl : MonoBehaviour
     {
         rigidbody = gameObject.GetComponent<Rigidbody>();
         collider = gameObject.GetComponent<BoxCollider>();
-
-        playerSource = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -201,6 +200,12 @@ public class PlayerControl : MonoBehaviour
     public void ChangeVolume()
     {
         camSource.volume = volumeSlider.value;
+
+        // Set a cap on max value for the sound fx to the multiplier rather than 1
         playerSource.volume = volumeSlider.value * 0.8f;
+        if(roombaSource)
+        {
+            roombaSource.volume = volumeSlider.value * 0.6f;
+        }
     }   
 }

@@ -88,10 +88,15 @@ MonoBehaviour:
   verticalJumpForce: 3.75
   maxJumpHoldDuration: 0.3
   gameSounds:
+  - {fileID: 8300000, guid: 8c63d61c95d8d864380de913553ad146, type: 3}
   - {fileID: 8300000, guid: dc9f01d730b9d7443a31be8e246d7e38, type: 3}
   - {fileID: 8300000, guid: d3aac5e6e66d9d44ca17915e9561cdce, type: 3}
   - {fileID: 8300000, guid: a78e3f474c50c3649a023c8b5e37ca99, type: 3}
   - {fileID: 8300000, guid: 5ba2a50a2a4fc154890b792c8858e7c7, type: 3}
+  camSource: {fileID: 0}
+  playerSource: {fileID: 6731080226465365408}
+  roombaSource: {fileID: 0}
+  volumeSlider: {fileID: 0}
 --- !u!114 &8780269098580065134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,8 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeCamKey: 304
-  firstPersonCam: {fileID: 0}
   thirdPersonCam: {fileID: 0}
+  mainCamera: {fileID: 0}
+  mouseSensitivity: 100
 --- !u!82 &6731080226465365408
 AudioSource:
   m_ObjectHideFlags: 0
@@ -119,7 +125,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0

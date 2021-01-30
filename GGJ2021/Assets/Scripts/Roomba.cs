@@ -33,7 +33,7 @@ public class Roomba : MonoBehaviour
         foreach(Rigidbody rigid in allForceObjs)
         {
             Vector3 rigidpos = rigid.gameObject.transform.position;
-            if (Mathf.Abs(rigidpos.y - transform.position.y) < 0.25f && SurfaceDist(rigidpos, transform.position) < 1.5f)
+            if (Mathf.Abs(rigidpos.y - transform.position.y) < 0.05f && SurfaceDist(rigidpos, transform.position) < 1.5f)
             {
                 Vector3 direction = new Vector3(transform.position.x - rigidpos.x, 0, transform.position.z - rigidpos.z);
                 rigid.gameObject.transform.position += Vector3.Normalize(direction) * Time.deltaTime * 0.10f/SurfaceDist(rigidpos, transform.position);
@@ -86,5 +86,19 @@ public class Roomba : MonoBehaviour
     {
         float distance = Vector3.Distance(new Vector3(a.x, 0, a.z), new Vector3(b.x, 0, b.z));
         return Mathf.Abs(distance);
+    }
+
+    // Kills the player if they are too close to the roomba
+    void OnTriggerEnter(Collider other)
+    {
+        if(other == player.gameObject.GetComponent<BoxCollider>())
+        {
+            player.gameObject.GetComponent<Rigidbody>().position = new Vector3(3.65f,1.6f,-2.183f);
+            player.gameObject.GetComponent<Rigidbody>().rotation = new Quaternion(0,0,0,0);
+            player.gameObject.transform.position = new Vector3(3.65f,1.6f,-2.183f);
+            player.gameObject.transform.rotation = new Quaternion(0,0,0,0);
+            player.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        }
     }
 }
