@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,7 +15,9 @@ public class UIManager : MonoBehaviour
     private float timer = 0;
     private bool textOnScreen = false;
     public GameObject textObject;
+    public GameObject pauseMenuUI;
     private Text textComponent;
+    public static bool gameIsPaused = false;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +59,18 @@ public class UIManager : MonoBehaviour
             ClearText();
             textOnScreen = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (gameIsPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
     }
 
     // Helper Methods
@@ -67,5 +82,32 @@ public class UIManager : MonoBehaviour
     public void ClearText()
     {
         textComponent.text = "";
+    }
+
+    public void Resume()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+        Cursor.visible = false;
+    }
+
+    public void Pause()
+    {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        gameIsPaused = true;
+        Cursor.visible = true;
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("If this was built, the application would quit!");
+        Application.Quit();
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
