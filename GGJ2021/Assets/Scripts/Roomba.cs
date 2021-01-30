@@ -12,6 +12,7 @@ public class Roomba : MonoBehaviour
     [SerializeField] const float speed = 0.2f;
     [SerializeField] Rigidbody[] allForceObjs;
     [SerializeField] List<GameObject> nearbyForceObjs;
+    Vector3 playerpos;
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +26,21 @@ public class Roomba : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        nearbyForceObjs.Clear();
+        //Key position
+        playerpos = player.gameObject.transform.position;
+
+        //Loop through all rigidbodies, aka objects with force
         foreach(Rigidbody rigid in allForceObjs)
         {
-            if(Vector3.Distance(rigid.gameObject.transform.position, transform.position) < 1.5f)
+            Vector3 rigidpos = rigid.gameObject.transform.position;
+            if (Mathf.Abs(rigidpos.y - transform.position.y) < 0.5f && SurfaceDist(rigidpos, transform.position) < 1.75f)
             {
-                rigid.gameObject.transform.position += Vector3.Normalize(transform.position - rigid.gameObject.transform.position) * Time.deltaTime * 0.15f/Vector3.Distance(rigid.gameObject.transform.position, transform.position);
+                Vector3 direction = new Vector3(transform.position.x - rigidpos.x, 0, transform.position.z - rigidpos.z);
+                rigid.gameObject.transform.position += Vector3.Normalize(direction) * Time.deltaTime * 0.10f/SurfaceDist(rigidpos, transform.position);
             }
         }
 
+        //Two GameStates: Following the path and Chasing the player (If close enough)
         switch (roombaState)
         {
             case 0:
@@ -54,21 +61,30 @@ public class Roomba : MonoBehaviour
                 }
 
                 //Detect distance to key
-                if(Vector3.Distance(player.gameObject.transform.position, transform.position) < 2)
+                //Takes vertical and horizontal distance into account
+                if (Mathf.Abs(playerpos.y - transform.position.y) < 0.5f && SurfaceDist(playerpos, transform.position) < 1)
                 {
                     roombaState = 1;
                 }
                 break;
             case 1:
                 //Move towards key
-                transform.position += Vector3.Normalize((player.gameObject.transform.position - transform.position)) * Time.deltaTime * speed;
+                transform.position += Vector3.Normalize(new Vector3(playerpos.x - transform.position.x, 0, playerpos.z - transform.position.z)) * Time.deltaTime * speed;
 
                 //Give up if the key is far enough away
-                if (Vector3.Distance(player.gameObject.transform.position, transform.position) > 3)
+                //Takes vertical and horizontal distance into account
+                if (SurfaceDist(playerpos, transform.position) > 2 || Mathf.Abs(playerpos.y - transform.position.y) > 1)
                 {
                     roombaState = 0;
                 }
                 break;
         }
+    }
+
+    //Calculates horizontal distance in a 3D space
+    private float SurfaceDist(Vector3 a, Vector3 b)
+    {
+        float distance = Vector3.Distance(new Vector3(a.x, 0, a.z), new Vector3(b.x, 0, b.z));
+        return Mathf.Abs(distance);
     }
 }
