@@ -50,6 +50,8 @@ MonoBehaviour:
   - {fileID: 0}
   target: 0
   roombaState: 0
+  allForceObjs: []
+  nearbyForceObjs: []
 --- !u!1 &4290757255412064680
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +111,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 6fcfa766c7b3bbd41a8d096c7fb34e76, type: 3}
+  - {fileID: 2100000, guid: 8d07f5c95b16a6645ac3ed7598e02b99, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -202,7 +204,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7806100501455280664, guid: 9788c41c42a3a9f48a4c48988b3391dd, type: 3}
+  - {fileID: 2100000, guid: 8cf1c183a47d87d498d487ea9e02a315, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

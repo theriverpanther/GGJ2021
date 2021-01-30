@@ -181,8 +181,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (!other.isTrigger)
         {
-            gameObject.GetComponent<AudioSource>().clip = gameSounds[Random.Range(0, gameSounds.Count)];
-            gameObject.GetComponent<AudioSource>().Play();
+            gameObject.GetComponent<AudioSource>().PlayOneShot(gameSounds[Random.Range(0, gameSounds.Count)]);
         }
     }   
 }
