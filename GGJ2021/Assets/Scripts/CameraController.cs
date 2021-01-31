@@ -32,6 +32,7 @@ public class CameraController : MonoBehaviour
     {
         // Lock the cursor so it stays in the center of the screen and is invisible
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame

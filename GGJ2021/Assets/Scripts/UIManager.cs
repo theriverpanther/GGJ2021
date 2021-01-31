@@ -133,6 +133,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         gameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = true;
         midGame = true;
     }
@@ -148,6 +149,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
         gameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = false;
     }
 
