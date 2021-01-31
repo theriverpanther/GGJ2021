@@ -20,6 +20,14 @@ public class MainMenu : MonoBehaviour
         sequenceIndex = 0;
     }
 
+    private void Awake()
+    {
+        // Make the menu objects active
+        sequenceObjects[0].SetActive(true);
+        elapsedTime = 0f;
+        sequenceIndex = 0;
+    }
+
     private void Update()
     {
         // If it is an element that needs animation, and the time passed is enough, go to the next slide

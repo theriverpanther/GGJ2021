@@ -864,7 +864,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1173,8 +1173,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -116.6}
-  m_SizeDelta: {x: 483.3499, y: 270.95923}
+  m_AnchoredPosition: {x: -0.000012398, y: -165}
+  m_SizeDelta: {x: 503.78717, y: 363.75146}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &822200347
 MonoBehaviour:
@@ -1211,7 +1211,8 @@ MonoBehaviour:
   m_Text: You're a key! Your person left you at home and now they are locked out
     in the Rochester winter. Look around with the mouse and press the space bar to
     leap to the rescue! Short presses give you quick jumps, and long presses let
-    you jump with some extra oomph.
+    you jump with some extra oomph. It can be hard to see in some tight corners,
+    so press shift to toggle a first-person camera!
 --- !u!222 &822200348
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1633,7 +1634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 44.7}
+  m_AnchoredPosition: {x: 0, y: 140}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1038474174
@@ -2320,7 +2321,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.64, y: -278}
+  m_AnchoredPosition: {x: -0.000015736, y: -370}
   m_SizeDelta: {x: 246.06708, y: 33.707184}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1700475342
