@@ -983,7 +983,7 @@ MonoBehaviour:
   - {fileID: 1423003047}
   - {fileID: 1269840155}
   - {fileID: 1812075846}
-  transitionTime: 3
+  transitionTime: 4.45
 --- !u!4 &534584433
 Transform:
   m_ObjectHideFlags: 0

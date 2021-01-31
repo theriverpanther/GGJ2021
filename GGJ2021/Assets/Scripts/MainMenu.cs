@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     // fields
     public GameObject[] sequenceObjects;
-    public int transitionTime;
+    public float transitionTime;
     private float elapsedTime = 0f;
     private int sequenceIndex = 0;
 
