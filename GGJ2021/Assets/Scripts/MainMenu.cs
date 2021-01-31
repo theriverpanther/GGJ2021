@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Handles main menu animation
 public class MainMenu : MonoBehaviour
 {
     // fields
@@ -13,11 +14,13 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        // Make the menu objects active
         sequenceObjects[0].SetActive(true);
     }
 
     private void Update()
     {
+        // If it is an element that needs animation, and the time passed is enough, go to the next slide
         if (sequenceIndex < sequenceObjects.Length - 1)
         {
             if (elapsedTime >= transitionTime)
@@ -37,11 +40,13 @@ public class MainMenu : MonoBehaviour
         sequenceObjects[sequenceIndex].SetActive(true);
     }
 
+    // Change the scene to the House game scene
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    // Close out of the application
     public void QuitGame()
     {
         Debug.Log("If this was built, the application would quit!");

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Base class for activated objects
 public class Activated : MonoBehaviour
 {
     // Start is called before the first frame update

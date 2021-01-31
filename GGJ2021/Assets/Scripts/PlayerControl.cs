@@ -42,6 +42,7 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Assign the rigidbody and collider
         rigidbody = gameObject.GetComponent<Rigidbody>();
         collider = gameObject.GetComponent<BoxCollider>();
     }
@@ -62,6 +63,7 @@ public class PlayerControl : MonoBehaviour
             holdDuration += Time.deltaTime;
         }
 
+        // If the user is on the ground, has a small y velocity, and is pressing the jump key, jump
         if ((IsGroundedV3() || rigidbody.velocity.magnitude < 0.005f) && Input.GetKeyDown(jumpKey))
         {
             Jump();
@@ -70,8 +72,10 @@ public class PlayerControl : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Add gravity to the player
         rigidbody.AddForce(Physics.gravity * 0.1f * rigidbody.mass);
 
+        // If the player is holding the jump button within the duration, add more force
         if (holdDuration <= maxJumpHoldDuration && Input.GetKey(jumpKey))
         {
             rigidbody.AddForce(jumpDirection * holdJumpForceMag);
@@ -112,6 +116,7 @@ public class PlayerControl : MonoBehaviour
         // Apply the jumping force to the player.
         rigidbody.AddForce(jumpForce);
 
+        // Rotate the key randomly in air
         Vector3 torque = new Vector3();
 
         torque.x = Random.Range(-jumpForceMag, jumpForceMag);
@@ -121,6 +126,7 @@ public class PlayerControl : MonoBehaviour
         rigidbody.AddTorque(torque);
     }
 
+    // Version 1 of ground check
     bool IsGrounded()
     {
         float groundDist;
@@ -137,6 +143,7 @@ public class PlayerControl : MonoBehaviour
         return Physics.Raycast(collider.transform.position, -Vector3.up, groundDist + 0.01f);
     }
 
+    // Version 2 of ground check
     bool TheCoolerIsGrounded()
     {
         Vector3 downPoint = new Vector3(
@@ -151,6 +158,8 @@ public class PlayerControl : MonoBehaviour
         return Physics.Raycast(playerBottom, -Vector3.up, 0.002f);
     }
 
+    // Version 3 of ground check
+    // Use the player's boundaries to check if the player is on the ground
     bool IsGroundedV3()
     {
         Vector3 downPoint = new Vector3(
