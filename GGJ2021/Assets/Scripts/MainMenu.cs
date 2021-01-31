@@ -9,13 +9,15 @@ public class MainMenu : MonoBehaviour
     // fields
     public GameObject[] sequenceObjects;
     public float transitionTime;
-    private float elapsedTime = 0f;
-    private int sequenceIndex = 0;
+    private float elapsedTime;
+    private int sequenceIndex;
 
     private void Start()
     {
         // Make the menu objects active
         sequenceObjects[0].SetActive(true);
+        elapsedTime = 0f;
+        sequenceIndex = 0;
     }
 
     private void Update()

@@ -17,8 +17,10 @@ public class UIManager : MonoBehaviour
     private bool textOnScreen = false;
     public GameObject textObject;
     public GameObject pauseMenuUI;
+    public GameObject roombaScreenUI;
     private Text textComponent;
     public static bool gameIsPaused = false;
+    public static bool playerIsAlive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -65,15 +67,22 @@ public class UIManager : MonoBehaviour
         }
 
         // If the player presses the pause key, toggle between the pause menu and active
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gameIsPaused)
+            if (playerIsAlive)
             {
-                Resume();
+                if (gameIsPaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
             }
             else
             {
-                Pause();
+                Resume();
             }
         }
     }
@@ -93,10 +102,12 @@ public class UIManager : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        roombaScreenUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
         key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = true;
+        playerIsAlive = true;
     }
 
     // Pause the game
@@ -107,6 +118,16 @@ public class UIManager : MonoBehaviour
         gameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;
         key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = false;
+    }
+
+    public void Death()
+    {
+        roombaScreenUI.SetActive(true);
+        Time.timeScale = 0f;
+        gameIsPaused = true;
+        Cursor.lockState = CursorLockMode.None;
+        key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = false;
+        playerIsAlive = false;
     }
 
     // Quits the game
