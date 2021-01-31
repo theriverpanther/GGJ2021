@@ -377,7 +377,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 14410915}
+  m_TargetGraphic: {fileID: 739060589}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2388,7 +2388,7 @@ GameObject:
   - component: {fileID: 340060614}
   - component: {fileID: 340060613}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ExitButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4213,7 +4213,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 622601529}
+  m_TargetGraphic: {fileID: 658659807}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -4746,7 +4746,7 @@ GameObject:
   - component: {fileID: 658659808}
   - component: {fileID: 658659807}
   m_Layer: 5
-  m_Name: Text
+  m_Name: MenuButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5191,7 +5191,7 @@ GameObject:
   - component: {fileID: 739060590}
   - component: {fileID: 739060589}
   m_Layer: 5
-  m_Name: Text
+  m_Name: PlayButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14094,7 +14094,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 2103532580}
+  m_TargetGraphic: {fileID: 340060613}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -24891,12 +24891,12 @@ PrefabInstance:
     - target: {fileID: 5113239415160004348, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -9.1391096e-11
+      value: -0.00000003825354
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415160004348, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00000014706494
+      value: 0.00000015195862
       objectReference: {fileID: 0}
     - target: {fileID: 5113239415386039108, guid: 89cdd43558531ee4bb2d3799a2b32c8d,
         type: 3}
