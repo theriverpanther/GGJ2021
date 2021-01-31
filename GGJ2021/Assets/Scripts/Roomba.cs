@@ -13,7 +13,7 @@ public class Roomba : MonoBehaviour
     [SerializeField] Rigidbody[] allForceObjs;
     [SerializeField] List<GameObject> nearbyForceObjs;
     Vector3 playerpos;
-    public GameObject UIManager;
+    public GameObject uiManager;
 
     // Start is called before the first frame update
     void Start()
@@ -101,7 +101,7 @@ public class Roomba : MonoBehaviour
             player.gameObject.transform.rotation = new Quaternion(0,0,0,0);
             player.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             player.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-            UIManager.GetComponent<UIManager>().Death();
+            uiManager.GetComponent<UIManager>().Death();
         }
     }
 }

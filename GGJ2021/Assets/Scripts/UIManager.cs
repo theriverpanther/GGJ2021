@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject[] triggerObjects;
     private RoomTrigger[] triggerScripts;
     private Collider[] triggerColliders;
+    public GameObject winTrigger;
     public GameObject key;
     public float screenTime;
     private float timer = 0;
@@ -18,9 +19,10 @@ public class UIManager : MonoBehaviour
     public GameObject textObject;
     public GameObject pauseMenuUI;
     public GameObject roombaScreenUI;
+    public GameObject winScreenUI;
     private Text textComponent;
     public static bool gameIsPaused = false;
-    public static bool playerIsAlive = true;
+    public static bool midGame = true;
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +71,7 @@ public class UIManager : MonoBehaviour
         // If the player presses the pause key, toggle between the pause menu and active
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (playerIsAlive)
+            if (midGame)
             {
                 if (gameIsPaused)
                 {
@@ -103,11 +105,12 @@ public class UIManager : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         roombaScreenUI.SetActive(false);
+        winScreenUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
         key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = true;
-        playerIsAlive = true;
+        midGame = true;
     }
 
     // Pause the game
@@ -127,7 +130,17 @@ public class UIManager : MonoBehaviour
         gameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;
         key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = false;
-        playerIsAlive = false;
+        midGame = false;
+    }
+
+    public void Win()
+    {
+        winScreenUI.SetActive(true);
+        Time.timeScale = 0f;
+        gameIsPaused = true;
+        Cursor.lockState = CursorLockMode.None;
+        key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = false;
+        midGame = false;
     }
 
     // Quits the game
