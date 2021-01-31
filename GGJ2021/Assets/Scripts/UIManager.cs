@@ -14,12 +14,16 @@ public class UIManager : MonoBehaviour
     public GameObject winTrigger;
     public GameObject key;
     public float screenTime;
-    private float timer = 0;
+    private float roomTextTimer = 0;
+    private float tutorialTimer;
+    public float tutorialScreenTime;
+    private bool inTutorial = false;
     private bool textOnScreen = false;
     public GameObject textObject;
     public GameObject pauseMenuUI;
     public GameObject roombaScreenUI;
     public GameObject winScreenUI;
+    public GameObject tutorialScreenUI;
     private Text textComponent;
     public static bool gameIsPaused = false;
     public static bool midGame = true;
@@ -38,6 +42,8 @@ public class UIManager : MonoBehaviour
         }
 
         textComponent = textObject.GetComponent<Text>();
+        tutorialScreenUI.SetActive(true);
+        inTutorial = true;
     }
 
     // Update is called once per frame
@@ -48,21 +54,34 @@ public class UIManager : MonoBehaviour
             // If the trigger has the player and hasn't been visited before, activate it
             if (triggerColliders[i].bounds.Contains(key.transform.position) && triggerScripts[i].visited == false)
             {
-                timer = 0;
+                roomTextTimer = 0;
                 DisplayText(triggerScripts[i].displayText);
                 triggerScripts[i].visited = true;
                 textOnScreen = true;
             }
         }
 
+        if (inTutorial)
+        {
+            if (tutorialTimer > tutorialScreenTime)
+            {
+                ClearTutorial();
+                inTutorial = false;
+            }
+            else
+            {
+                tutorialTimer += Time.deltaTime;
+            }
+        }
+
         // If there's text on screen, add to the timer
         if (textOnScreen)
         {
-            timer += Time.deltaTime;
+            roomTextTimer += Time.deltaTime;
         }
 
         // If the timer has gone past the allotted time, clear the text
-        if (timer > screenTime)
+        if (roomTextTimer > screenTime)
         {
             ClearText();
             textOnScreen = false;
@@ -99,6 +118,11 @@ public class UIManager : MonoBehaviour
     {
         textComponent.text = "";
     }
+    
+    public void ClearTutorial()
+    {
+        tutorialScreenUI.SetActive(false);
+    }
 
     // Resume the game
     public void Resume()
@@ -109,6 +133,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         gameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = true;
         midGame = true;
     }
@@ -116,10 +141,15 @@ public class UIManager : MonoBehaviour
     // Pause the game
     public void Pause()
     {
+        if (inTutorial)
+        {
+            ClearTutorial();
+        }
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         key.GetComponent<CameraController>().thirdPersonCam.GetComponent<CinemachineFreeLook>().enabled = false;
     }
 
@@ -153,6 +183,6 @@ public class UIManager : MonoBehaviour
     // Go back to the main menu scene
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
