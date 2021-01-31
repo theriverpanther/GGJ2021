@@ -72,11 +72,23 @@ public class Roomba : MonoBehaviour
                     }
                 }
 
+                //Raycast
+                Ray ray = new Ray(playerpos, Vector3.Normalize(new Vector3(playerpos.x - transform.position.x, 0, playerpos.z - transform.position.z)));
+                RaycastHit hit;
+
                 //Detect distance to key
                 //Takes vertical and horizontal distance into account
                 if (Mathf.Abs(playerpos.y - transform.position.y) < 0.5f && SurfaceDist(playerpos, transform.position) < 1)
                 {
-                    roombaState = 1;
+                    /*
+                    if(Physics.Raycast(ray, out hit, 10))
+                    {
+                        if(hit.collider.tag != "House")
+                        {*/
+                            roombaState = 1;
+                        /*}
+                    }*/
+
                 }
                 break;
             case 1:
