@@ -30,12 +30,14 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Lock the cursor so it stays in the center of the screen and is invisible
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // If it is third person and there is a delay, track for the first person camera
         if (isThirdPerson && camSwitchDelay > 0) // HERE BE DRAGONS! DO. NOT. TOUCH THIS.
         {
             if (camSwitchDelay == 1)
@@ -62,6 +64,7 @@ public class CameraController : MonoBehaviour
         {
             if (isThirdPerson)
             {
+                // If it is third person, take the position and calculate the angle on a circle that the first person camera should face
                 Vector3 target = gameObject.transform.position - thirdPersonCam.position;
                 float result = 0f;
 
@@ -71,6 +74,7 @@ public class CameraController : MonoBehaviour
             }
             else
             {
+                // If it is first person, start the delay
                 firstPersonBackwards = -mainCamera.forward;
                 firstPersonLeft = -mainCamera.right;
 
@@ -83,14 +87,13 @@ public class CameraController : MonoBehaviour
         }
         if(!isThirdPerson)
         {
+            // If in first person, track the mouse and move the camera accordingly
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
             yRotation += mouseX;
-
-            //Debug.Log(xRotation + "\n" + yRotation);
 
             mainCamera.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
 
@@ -99,6 +102,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    // Draw a gizmo of the vector between the third person camera and the player
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

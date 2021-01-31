@@ -91,6 +91,7 @@ public class Roomba : MonoBehaviour
     // Kills the player if they are too close to the roomba
     void OnTriggerEnter(Collider other)
     {
+        // If the hitbox is the player, trigger the kill (WIP)
         if(other == player.gameObject.GetComponent<BoxCollider>())
         {
             player.gameObject.GetComponent<Rigidbody>().position = new Vector3(3.65f,1.6f,-2.183f);

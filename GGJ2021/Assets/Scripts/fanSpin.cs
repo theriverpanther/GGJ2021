@@ -16,6 +16,7 @@ public class fanSpin : Activated
     // Start is called before the first frame update
     void Start()
     {
+        // Initialize the rigidbody variable and set the rotation
         rigidbody = gameObject.GetComponent<Rigidbody>();
 
         eulerRotation = new Vector3(0, rotationSpeed, 0);
@@ -23,6 +24,7 @@ public class fanSpin : Activated
 
     void FixedUpdate()
     {
+        // If the fan is on, rotate it based off of the eulerRotation
         if (spinning)
         {
             Quaternion deltaRotation = Quaternion.Euler(eulerRotation * Time.deltaTime);
@@ -31,6 +33,7 @@ public class fanSpin : Activated
         }
     }
 
+    // When the fan is activated, turn on the spinning
     public override void OnActivate()
     {
         base.OnActivate();
