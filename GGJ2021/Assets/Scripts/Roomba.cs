@@ -38,7 +38,7 @@ public class Roomba : MonoBehaviour
         playerpos = player.gameObject.transform.position;
 
         //Loop through all rigidbodies, aka objects with force
-        foreach(Rigidbody rigid in allForceObjs)
+        foreach (Rigidbody rigid in allForceObjs)
         {
             Vector3 rigidpos = rigid.gameObject.transform.position;
             if (Mathf.Abs(rigidpos.y - transform.position.y) < 0.05f && SurfaceDist(rigidpos, transform.position) < 1.5f)
@@ -53,7 +53,11 @@ public class Roomba : MonoBehaviour
         {
             case 0:
                 //Move towards current target
-                transform.position += Vector3.Normalize((waypoints[target].transform.position - transform.position)) * Time.deltaTime * speed;
+                transform.position += Vector3.Normalize(waypoints[target].transform.position - transform.position) * Time.deltaTime * speed;
+
+                //Rotate towards direction
+                Quaternion rotation = Quaternion.LookRotation(waypoints[target].transform.position - transform.position, Vector3.up);
+                transform.rotation = rotation;
 
                 //Swap targets if successfully reached one
                 if (Vector3.Distance(waypoints[target].transform.position, transform.position) < 0.1f)
@@ -78,6 +82,10 @@ public class Roomba : MonoBehaviour
             case 1:
                 //Move towards key
                 transform.position += Vector3.Normalize(new Vector3(playerpos.x - transform.position.x, 0, playerpos.z - transform.position.z)) * Time.deltaTime * speed;
+
+                //Rotate towards direction
+                rotation = Quaternion.LookRotation(playerpos - transform.position, Vector3.up);
+                transform.rotation = rotation;
 
                 //Give up if the key is far enough away
                 //Takes vertical and horizontal distance into account
