@@ -53,7 +53,7 @@ public class Roomba : MonoBehaviour
         {
             case 0:
                 //Move towards current target
-                transform.position += Vector3.Normalize(waypoints[target].transform.position - transform.position) * Time.deltaTime * speed;
+                transform.position += Vector3.Normalize(new Vector3(waypoints[target].transform.position.x, 0, waypoints[target].transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z)) * Time.deltaTime * speed;
 
                 //Rotate towards direction
                 Quaternion rotation = Quaternion.LookRotation(waypoints[target].transform.position - transform.position, Vector3.up);
@@ -84,7 +84,7 @@ public class Roomba : MonoBehaviour
                 transform.position += Vector3.Normalize(new Vector3(playerpos.x - transform.position.x, 0, playerpos.z - transform.position.z)) * Time.deltaTime * speed;
 
                 //Rotate towards direction
-                rotation = Quaternion.LookRotation(playerpos - transform.position, Vector3.up);
+                rotation = Quaternion.LookRotation(new Vector3(playerpos.x, 0, playerpos.z) - new Vector3(transform.position.x, 0, transform.position.z), Vector3.up);
                 transform.rotation = rotation;
 
                 //Give up if the key is far enough away
